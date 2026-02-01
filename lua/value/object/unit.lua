@@ -2,15 +2,14 @@ local items = {}
 
 items.keymap = {}
 
-function items.keymap:reset()
+function items.keymap:reset(stack_header)
 	local modes = { 'n', 'i', 'v', 'x', 's', 'o', 'c', 't' }
-	local header = self.stack:gsr('head')
 	
     for _, mode in ipairs(modes) do
-    	local map = vim.api.nvim_buf_get_keymap(header.bufnr, mode)
+    	local map = vim.api.nvim_buf_get_keymap(stack_header.bufnr, mode)
     
         for _, tb in ipairs(map) do
-            vim.api.nvim_buf_del_keymap(header.bufnr, mode, tb.lhs)
+            vim.api.nvim_buf_del_keymap(stack_header.bufnr, mode, tb.lhs)
         end
     end
 end
@@ -29,8 +28,7 @@ function items.keymap:meap(pMkdrnb)
     end
 end
 
-function items:draw(texts)
-	local header = self.stack:gsr('head')
+function items:draw(header, texts)
  	local bufnr = header.bufnr
 	
 	vim.bo[bufnr].modifiable = true
