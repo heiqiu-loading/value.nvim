@@ -3,8 +3,8 @@ local items = nil
 if items then return items end
 
 items = {}
-items.stack = require('heiqiu.mod.dashboard.object.stack')
-items.unit = require('heiqiu.mod.dashboard.object.unit'):sync(items.stack)
+items.stack = require('value.object.stack')
+items.unit = require('value.object.unit'):sync(items.stack)
 
 
 function items:getContents()
@@ -30,30 +30,18 @@ function items:getContents()
   	return lines, positions, executes
 end
 
-function items:keys()
-	local fun_keys = require('heiqiu.fun.keys')
-	local map = require 'heiqiu.config.vim.mappings'
-
-	fun_keys:reset(map)
-
-    fun_keys:meap { self.stack:gsr('data').keymap, map }
-    
-    fun_keys:settlement(map)
-end
-
 function items:new(config)
 	if ( vim.api.nvim_get_mode().mode == 'i' ) or not vim.bo.modifiable then return end
 	if vim.bo.modified then return end
 	
-	local fun_keys = require('heiqiu.fun.keys')
 	local stack = self.stack:gsr()
 	local header = stack.head
 	local default = {}
 	local opts = {
-		null = fun_keys:opts(false, false, 0),
-		ntim = fun_keys:opts(false, true, 0),
-		rpce = fun_keys:opts(true, false, 0),
-		rpnt = fun_keys:opts(true, true, 0),
+		null = self.unit.keymap:opts(false, false, 0),
+		ntim = self.unit.keymap:opts(false, true, 0),
+		rpce = self.unit.keymap:opts(true, false, 0),
+		rpnt = self.unit.keymap:opts(true, true, 0),
 	}
 	
 	default.data = {}
@@ -100,7 +88,8 @@ function items:sync()
 
   	stack.data.display, stack.data.position, stack.data.execute = self:getContents()
 	self.unit:draw(stack.data.display)
-	self:keys()
+	self.unit.keymap:reset()
+    self.unit.keymap:meap { self.stack:gsr('data').keymap }
 end
 
 return items
