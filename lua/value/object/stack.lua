@@ -1,107 +1,64 @@
-local items = {
-	stack = {{
-		head = {
-			name = 'ui_dashboard',
-			winid = 0,
-			bufnr = 0,
-			modifiable = false
-		},
-		text = {
-			--[[ {
-				text = {
-			
-				},
-				hitbox = {
-			
-				}
-			} --]]
-		},
-		data = {
-			position = {},
-			execute = {},
-			display = {},
-			keymap = {}
-		}
-	}}
-}
+--- @class Value_Stack_CLASS
+--- @field text table<any>
+--- @field data table<any>
 
-function items:len()
-	return #self.stack
+--- @type Value_Stack_CLASS[]
+local private = {}
+
+--- @class Value_Stack_FUN
+local api = {}
+
+---@type fun():integer
+api.len = api.len or function()
+	return #private
 end
 
-function items:rmv()
-	self.stack[self:len()] = nil
-	
-	return true
+---@type fun(label?:string, table?:table):Value_Stack_CLASS|any
+api.get = api.get or function(l, t)
+	t = t or private[#private]
+
+	return not l and t or t[l]
 end
 
-function items:gsr(i, s, r)
-	local stack = self.stack[self:len()]
-	local ns = s ~= nil
-	
+---@type fun(label:string|integer|nil, v:any, table?:table, insert?:boolean)
+api.mov = api.mov or function(l, v, i)
 	if i then
-		if r then
-			stack[i] = nil
-		
-			return true
-		end
-	
-		if ns then
-			stack[i] = s
-		
-			return s
-		end
-	
-		return stack[i]
+		table.insert(private[#private][l], v)
+	else
+		private[#private][l] = v
 	end
-	
-	if ns then
-		self.stack[self:len()] = s
-		
-		return s
-	end
-	
+end
+
+---@type fun(function:fun(stack:Value_Stack_CLASS)):boolean
+api.cal = api.cal or function(f)
+	if not f then return false end
+
+	local r = f(private[#private])
+
 	if r then
-		self.stack[self:len()] = nil
-		
-		return true
+		table.insert(private, vim.tbl_deep_extend("force", private[#private] or { text = {}, data = {} }, r))
 	end
-	
-	return stack
-end
-
-
-
-function items:cal(fun)
-	if not fun then return false end
-
-    vim.notify('[value.dashboard.stack] calling', vim.log.levels.INFO)
-    
-	table.insert(self.stack, vim.tbl_deep_extend("force", self:gsr(), fun(self:gsr())))
-	
 	return true
 end
 
-function items:jpb(index)
-	if not index or index <= 0 or index >= self:len() then return false end
-	
-    vim.notify('[value.dashboard.stack] jumping', vim.log.levels.INFO)
-	
-	while self:len() > index do
-		self:gsr(nil, nil, true)
-	end
-	
-	return true
-end
+---@type fun():boolean
+api.ret = api.ret or function()
+	if #private <= 1 then return false end
 
-function items:ret()
-	if self:len() <= 1 then return false end
+    private[#private] = nil
 
-	vim.notify('[value.dashboard.stack] returning', vim.log.levels.INFO)
-
-    self:gsr(nil, nil, true)
-    
     return true
 end
 
-return items
+---@type fun(index:integer):boolean
+api.jpb = api.jpb or function(i)
+	if not i or i <= 0 then return false end
+
+	while #private > i do
+		private[#private] = nil
+	end
+	
+	return true
+end
+
+return api
