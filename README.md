@@ -20,8 +20,10 @@ a little side effect huh, that it, enjoy!
 # other thing
 
 ====================================================  
+
 dashboard-nvim: https://github.com/nvimdev/dashboard-nvim  
 license: MIT (just extends) 
+
 ====================================================  
   
   
@@ -37,6 +39,7 @@ c: create
 # diff (only structure)
 
 ====================================================  
+
 -- c lua/value/object/
 -- c lua/value/unit/
 -- r lua/dashboard/  
@@ -48,4 +51,5 @@ c: create
 -- c plugin/value.lua  
 -- r .style.toml  
 -- e README.md
+
 ====================================================  
