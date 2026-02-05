@@ -1,10 +1,6 @@
-WARN: This project was modified.  
 README.md was modified by heiqiu_loading in 2026-02-01  
   
   
-  
-# title
-
 no title  
   
   
@@ -18,41 +14,39 @@ a little side effect huh, that it, enjoy!
   
   
   
-# define
+# other thing
 
-r is remove  
-e is edit  
-c is create  
-  
-  
-  
-# link
+====================================================  
+
+dashboard-nvim: https://github.com/nvimdev/dashboard-nvim  
+license: MIT (just extends) 
 
 ====================================================  
   
-dashboard-nvim: "https://github.com/nvimdev/dashboard-nvim"  
-license: "./LICENSE"  
-  
-====================================================  
   
   
+# defines
+
+(in README.md)  
   
+r: remove  
+e: edit  
+c: create  
+
 # diff (only structure)
 
 ====================================================  
-  
+
+-- c lua/value/object/  
+-- c lua/value/unit/  
+-- r lua/dashboard/  
 -- r .github/  
 -- r doc/  
--- r plugin/  
--- r lua/theme/  
--- r .style.toml  
+-- c lua/value/object/stack.lua    
+-- c lua/value/unit/keymap.lua  
+-- c lua/value/init.lua  
+-- c plugin/value.lua  
+-- r .style.toml    
 -- e README.md  
--- r lua/utils.lua  
--- r lua/preview.lua  
--- r lua/events.lua  
--- e lua/init.lua  
--- c lua/object/  
--- c lua/object/unit.lua  
--- c lua/object/stack.lua  
-  
+
 ====================================================  
