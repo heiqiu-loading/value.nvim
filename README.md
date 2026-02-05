@@ -40,16 +40,16 @@ c: create
 
 ====================================================  
 
--- c lua/value/object/
--- c lua/value/unit/
+-- c lua/value/object/  
+-- c lua/value/unit/  
 -- r lua/dashboard/  
 -- r .github/  
 -- r doc/  
 -- c lua/value/object/stack.lua    
--- c lua/value/unit/keymap.lua
--- c lua/value/init.lua
+-- c lua/value/unit/keymap.lua  
+-- c lua/value/init.lua  
 -- c plugin/value.lua  
--- r .style.toml  
--- e README.md
+-- r .style.toml    
+-- e README.md  
 
 ====================================================  
