@@ -8,7 +8,8 @@ no title
   
   
   
-# description
+## description
+---
 
 "dashboard-nvim" is pretty cool, but configuration is really hard for me,  
 so i made this project to make it more configurable.  
@@ -17,39 +18,41 @@ a little side effect huh, that it, enjoy!
   
   
   
-# other thing
+## link
+---
+- dashboard-nvim: [dashboard-nvim](https://github.com/nvimdev/dashboard-nvim)
 
-====================================================  
 
-dashboard-nvim: https://github.com/nvimdev/dashboard-nvim  
-license: MIT (just extends) 
+### change log
+---
+- Forking
+	- git fetch org
+	- git reset --hard org/master  
+- Destroy entire structure (#0)
+	- rm -r doc/
+	- rm -r .github/
+	- rm -r plugin/
+	- rm -r lua/dashboard/
+	- rm .stylua.toml
+	- rm README.md
+- Setup (#1)
+	- mkdir -p lua/value/object/
+		- touch lua/value/object/stack.lua
+	- mkdir -p lua/value/unit/
+		- touch lua/value/unit/keymap.lua
+	- mkdir plugin/
+		- touch plugin/value.lua
+	- mov ~/dev/item/config/nvim/lua/user/plugin/dashboard/* lua/value/
+	- touch README.md
+	- nvim lua/value
+- Looking for standard plugin structure (#2)
+	- mov lua/value/init.lua lua/value.lua
+	- cat lua/plugin/value.lua >> lua/value.lua
+	- rm -r plugin/
+	- nvim lua/value.lua
+- Is my project (#2)
+	- echo '#define Lua_PROJECT' > project.c
 
-====================================================  
-  
-  
-  
-# defines
-
-(in README.md)  
-  
-r: remove  
-e: edit  
-c: create  
-
-# diff (only structure)
-
-====================================================  
-
--- c lua/value/object/  
--- c lua/value/unit/  
--- r lua/dashboard/  
--- r .github/  
--- r doc/  
--- c lua/value/object/stack.lua    
--- c lua/value/unit/keymap.lua  
--- c lua/value/init.lua  
--- c plugin/value.lua  
--- r .style.toml    
--- e README.md  
-
-====================================================  
+### TO-DO
+---
+- What can i do?
